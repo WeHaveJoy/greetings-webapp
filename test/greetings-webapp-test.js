@@ -22,14 +22,14 @@ describe("Greet factory function", function () {
         let greetings = Greet();
 
         greetings.greetLang(selectedLang, nameEntered.value);
-      
+
         assert.equal(selectedLang, nameEntered, greetings.greetLang());
     })
 
     it("should be able to show error message", function () {
         let greetings = Greet();
 
-    
+
         greetings.errorMessage("Please enter name and select a language!");
         assert.equal("Please enter name and select a language!", greetings.errorMessage());
     })
@@ -40,4 +40,4 @@ describe("Greet factory function", function () {
         greetings.greetCounter(0);
         assert.equal(0, greetings.greetCounter());
     })
-    })
+})

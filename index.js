@@ -22,10 +22,10 @@ app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
     res.render('index', {
-       setNames: greet.getNames(),
-       greet: greet.greetLang(),
-       counter: greet.greetCounter(),
-       message: greet.errorMessage(),     
+        setNames: greet.getNames(),
+        greet: greet.greetLang(),
+        counter: greet.greetCounter(),
+        message: greet.errorMessage(),
 
     });
 });
@@ -39,18 +39,18 @@ app.post('/greeted', function (req, res) {
     res.redirect('/');
 });
 
-app.get('/counter', function (req, res) {
-    const listNames = greet.counter();
-    for (var i= 0;  i< listNames.length;i++) {
-       if(){
-           
-       }
-    }
+app.get('/counter/names', function (req, res) {
+    // const listNames = greet.counter();
+    // for (var i= 0;  i< listNames.length;i++) {
+    //    if(){
+
+    //    }
+    // }
     res.render('counter', { counter: Greet.counter() });
 });
 
 const PORT = process.env.PORT || 3010
 app.listen(PORT, function () {
-    
+
 });
 
