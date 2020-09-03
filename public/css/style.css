@@ -1,0 +1,24 @@
+body{
+    background-color: slategrey;
+}
+
+.name{
+    color: aqua;
+}
+
+.name,.nameEntered,.counter{
+    display: inline;
+    font-size: larger;
+}
+
+.btnGreet{
+    color: aqua;
+    background-color: palevioletred;
+    font-size: large;
+     
+}
+
+.radioBtn{
+    color: thistle;
+    
+}
