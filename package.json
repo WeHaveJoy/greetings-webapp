@@ -17,5 +17,12 @@
     "url": "https://github.com/WeHaveJoy/greetings-webapp/issues"
   },
   "homepage": "https://github.com/WeHaveJoy/greetings-webapp#readme",
-  "description": ""
+  "directories": {
+    "test": "test"
+  },
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0"
+  }
 }
