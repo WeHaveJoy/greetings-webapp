@@ -1,14 +1,17 @@
 module.exports = function Greet(name){
-    var namesList = name || [];
+    var namesList = {};
     
         function setNames(name){
            if(name){
-                if(!namesList.includes(name)){
-                 namesList.push(name);
-    
+                if(namesList[name] === undefined){
+                    namesList[name] = 0;
                 }
-            }
-        }
+                namesList[name]++
+                 
+                }
+                }
+            
+        
     
         function greetLang(selectedLang, nameEntered){
             if(selectedLang === "English"){
@@ -24,11 +27,13 @@ module.exports = function Greet(name){
         }
     
       function getNames(){
+          console.log(namesList)
             return namesList;
         }
     
         function greetCounter(){
-            return namesList.length;
+            var names = Object.keys(namesList) 
+            return names.length;
         }
     
         function errorMessage(selectedLang, nameEntered){

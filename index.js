@@ -21,26 +21,25 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
-    res.render('index', {
-        setNames: greet.getNames(),
-        greet: greet.greetLang(),
-        counter: greet.greetCounter(),
-        message: greet.errorMessage(),
-    });
-    
+res.render(
+  "index",{  
+})
 });
 
-app.post('/greeted', function (req, res) {
+app.post('/', function (req, res) {
+console.log(greet.setNames(req.body.nameValue))
+console.log(greet.greetLang(req.body.language,req.body.nameValue))
 
-    greet.greetLang({
-        selectedLang: req.body.selectedLang,
-        nameEntered: req.body.nameEntered
-    });
-    greet.setNames({
-        name: req.body.name
-    });
+    greet.greetLang(req.body.language,req.body.nameValue);
+    greet.setNames(req.body.nameValue);
 
-    res.redirect('/');
+    
+res.render('index',{
+   message :  greet.greetLang(req.body.language,req.body.nameValue),
+   count : greet.greetCounter()
+})
+
+    // res.redirect('/');
 });
 
 

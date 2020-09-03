@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="greet.css"> 
+    <link rel="stylesheet" href="/css/style.css"> 
 </head>
 <body>
   <div class="container"> --}}
@@ -12,10 +12,9 @@
     <b>
         <h1>Greeting</h1>
     </b>
-    <form action="/greeted" method="POST">
+    <form action="/" method="POST">
     <h3 class="name">Name: </h3>
-    <input type="text" class="nameEntered" placeholder="enter name">
-    <div class="counter"></div>
+    <input type="text" class="nameEntered"  name="nameValue" placeholder="enter name">
 </div>
 
 {{!-- <div class="selectLang">
@@ -43,8 +42,12 @@
 <div>
     <button class="button-primary" type="submit" name="button">Greet me!</button>
 </div>
-<div class="message"></div>
 </form>
+
+<div class="message">{{message}}</div>
+    <div class="counter">{{count}}</div>
+
+
 {{!-- </div> --}}
 {{!-- </body>
 <script src="factory-function.js"></script>
