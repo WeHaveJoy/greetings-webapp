@@ -11,14 +11,15 @@ body{
     font-size: larger;
 }
 
-.btnGreet{
+.button-primary{
     color: aqua;
     background-color: palevioletred;
-    font-size: large;
+    font-size: xx-large;
      
 }
 
-.radioBtn{
+.label-body{
     color: thistle;
+    font-size: xx-large;
     
 }

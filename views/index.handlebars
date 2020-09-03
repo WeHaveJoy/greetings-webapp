@@ -12,24 +12,39 @@
     <b>
         <h1>Greeting</h1>
     </b>
+    <form action="/greeted" method="POST">
     <h3 class="name">Name: </h3>
     <input type="text" class="nameEntered" placeholder="enter name">
     <div class="counter"></div>
 </div>
 
-<div class="selectLang">
+{{!-- <div class="selectLang">
     <strong>Choose a language: </strong>
     <input type="radio" name="language" value="English">English
     <input type="radio" name="language" value="Afrikaans">Afrikaans
     <input type="radio" name="language" value="IsiXhosa">IsiXhosa
+</div> --}}
 
-</div>
+<label class="">
+    <input type="radio" name="language" value="English" class="selectLang">
+    <span class="label-body">English</span>
+</label>
+
+<label class="">
+    <input type="radio" name="language" value="IsiXhosa" class="selectLang">
+    <span class="label-body">IsiXhosa</span>
+</label>
+
+<label class="">
+    <input type="radio" name="language" value="Afrikaans" class="selectLang">
+    <span class="label-body">Afrikaans</span>
+</label>
 
 <div>
-    <button class="btnGreet">Greet me!</button>
+    <button class="button-primary" type="submit" name="button">Greet me!</button>
 </div>
 <div class="message"></div>
-
+</form>
 {{!-- </div> --}}
 {{!-- </body>
 <script src="factory-function.js"></script>

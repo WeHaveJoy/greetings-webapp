@@ -21,9 +21,9 @@ describe("Greet factory function", function () {
     it("should be able to choose a language", function () {
         let greetings = Greet();
 
-        greetings.greetLang(selectedLang, nameEntered.value);
+        greetings.greetLang(language, nameEntered.value);
 
-        assert.equal(selectedLang, nameEntered, greetings.greetLang());
+        assert.equal(language, nameEntered, greetings.greetLang());
     })
 
     it("should be able to show error message", function () {

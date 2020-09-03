@@ -26,18 +26,23 @@ app.get('/', function (req, res) {
         greet: greet.greetLang(),
         counter: greet.greetCounter(),
         message: greet.errorMessage(),
-
     });
+    
 });
 
 app.post('/greeted', function (req, res) {
 
-    Greet.greetLang({
+    greet.greetLang({
         selectedLang: req.body.selectedLang,
         nameEntered: req.body.nameEntered
     });
+    greet.setNames({
+        name: req.body.name
+    });
+
     res.redirect('/');
 });
+
 
 app.get('/counter/names', function (req, res) {
     // const listNames = greet.counter();
