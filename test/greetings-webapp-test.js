@@ -4,18 +4,18 @@ let Greet = require("../greetings-webapp");
 describe("Greet factory function", function () {
     it("should be able to set names", function () {
         let greetings = Greet();
+        var theNames = greetings.greetLang("IsiXhosa", "Sino")
 
-        greetings.setNames("Zizipho");
-        greetings.setNames("Phelokazi");
-        greetings.setNames("Zandile");
-        assert.equal("Zizipho,Phelokazi,Zandile", greetings.getNames());
+        
+        assert.equal(theNames, 'Molo, Sino!' );
+
     })
 
     it("should be able to get names", function () {
         let greetings = Greet();
 
-        greetings.setNames("Lisa");
-        assert.equal("Lisa", greetings.getNames());
+        greetings.setNames(name);
+        assert.deepEqual(name, greetings.getNames());
     })
 
     it("should be able to choose a language", function () {
@@ -36,8 +36,11 @@ describe("Greet factory function", function () {
 
     it("should be able to count names", function () {
         let greetings = Greet();
+        
+        greetings.setNames("IsiXhosa", "Sino");
+        greetings.setNames("English", "Zizo");
+        greetings.setNames("Afrikaans", "Sibo");
 
-        greetings.greetCounter(0);
-        assert.equal(0, greetings.greetCounter());
+        assert.equal(3, greetings.greetCounter());
     })
 })

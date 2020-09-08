@@ -38,7 +38,7 @@ app.post('/', function (req, res) {
     res.render('index', {
         message: (error === "") ? greet.greetLang(req.body.language, req.body.nameValue) : error,
         count: greet.greetCounter(),
-        greeted: greet.getNames(),
+        greeted: greet.getNames()
        
     })
 
@@ -56,15 +56,22 @@ app.get('/counter', function (req, res) {
     res.render('counter', { counter: greet.counter() });
 });
 
-app.get('/greeted/:user', function (req, res) {
-    const nameType = req.params.nametype;
+app.get('/greeted', function (req, res){
+   
+    
+    res.render('greeted', { greeted:greet.getNames()});
+})
 
-    const listNames = greet.actionsFor(nameType);
+app.get('/greeted/:name', function (req, res) {
+    const name = req.params.name;
 
-    for (action of listNames) {
-        action.nameNum = action.listNames;
-    }
-    res.render('greeted', { greeted: listNames });
+    // const listNames = greet.actionsFor(nameType);
+    var count =  greet.getNameCount(name)
+
+    // for (action of listNames) {
+    //     action.nameNum = action.listNames;
+    // }
+    res.render('greeted', { greetedName: `${name} have been greeted ${count} times` });
 })
 
 const PORT = process.env.PORT || 3010

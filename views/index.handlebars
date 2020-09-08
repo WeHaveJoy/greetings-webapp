@@ -14,7 +14,8 @@
     </b>
     <form action="/" method="POST">
         <h3 class="name">Name: </h3>
-        <input type="text" class="nameEntered" name="nameValue" placeholder="enter name" required>
+        <input type="text" class="nameEntered" name="nameValue" placeholder="enter name" >
+        <div class="counter">{{count}}</div>
 </div>
 
 {{!-- <div class="selectLang">
@@ -41,20 +42,28 @@
 
 <div>
     <button class="button-primary" type="submit" name="button">Greet me!</button>
+    
+    {{!-- <button class="button-primary" type="submit" name="button" >Clear!</button>
+  
+     <button class="button-primary" type="submit" name="button" href="/greeted">Greeted!</button> --}}
 </div>
 </form>
 
 <div class="message">{{message}}</div>
-<div class="counter">{{count}}</div>
 
-<tr>
+
+<a href="/greeted">Greeted Names</a>
+<br>
+<a href="/counter">Number of greeted names</a>
+
+{{!-- <tr>
     <td>
         <a href="/greeted/user">Name</a>
     </td>
     <td>
         <a href="/greeted/user">Count</a>
     </td>
-</tr>
+</tr> --}}
 
 {{!-- <ul>
     {{#each greeted}}

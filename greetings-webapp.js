@@ -11,6 +11,12 @@ module.exports = function Greet(name) {
         }
     }
 
+    function getNameCount(name){
+        // console.log({name,namesList});
+        // console.log( namesList[name]);
+        
+        return namesList[name];
+    }
 
 
     function greetLang(selectedLang, nameEntered) {
@@ -33,7 +39,7 @@ module.exports = function Greet(name) {
     }
 
     function getNames() {
-        console.log(namesList)
+        //console.log(namesList)
         return namesList;
     }
 
@@ -70,7 +76,8 @@ module.exports = function Greet(name) {
         getNames,
         greetCounter,
         errorMessage,
-        greeted
+        greeted,
+        getNameCount
         // actionsFor
     }
 }

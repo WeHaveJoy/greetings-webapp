@@ -3,8 +3,12 @@
 
    <ul>
     {{#each greeted}}
-    <li><h3>Hello you greeted</h3> {{this}}</li>
+    <li><a href="/greeted/{{@key}}">{{@key}}</a></li>
     {{/each}}
 </ul>
 
+<h3>{{greetedName}}</h3>
+<br>
+<hr>
+<a href="/"><button>back</button></a>
 </div>
