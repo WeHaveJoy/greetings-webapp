@@ -13,8 +13,8 @@
         <h1>Greeting</h1>
     </b>
     <form action="/" method="POST">
-    <h3 class="name">Name: </h3>
-    <input type="text" class="nameEntered"  name="nameValue" placeholder="enter name">
+        <h3 class="name">Name: </h3>
+        <input type="text" class="nameEntered" name="nameValue" placeholder="enter name" required>
 </div>
 
 {{!-- <div class="selectLang">
@@ -45,7 +45,22 @@
 </form>
 
 <div class="message">{{message}}</div>
-    <div class="counter">{{count}}</div>
+<div class="counter">{{count}}</div>
+
+<tr>
+    <td>
+        <a href="/greeted/user">Name</a>
+    </td>
+    <td>
+        <a href="/greeted/user">Count</a>
+    </td>
+</tr>
+
+{{!-- <ul>
+    {{#each greeted}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul> --}}
 
 
 {{!-- </div> --}}

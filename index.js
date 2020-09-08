@@ -21,37 +21,51 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
-res.render(
-  "index",{  
-})
+    res.render(
+        "index", {
+    })
 });
 
 app.post('/', function (req, res) {
-console.log(greet.setNames(req.body.nameValue))
-console.log(greet.greetLang(req.body.language,req.body.nameValue))
+    // console.log(greet.setNames(req.body.nameValue))
+    // console.log(greet.greetLang(req.body.language,req.body.nameValue))
 
-    greet.greetLang(req.body.language,req.body.nameValue);
+    greet.greetLang(req.body.language, req.body.nameValue);
     greet.setNames(req.body.nameValue);
+    var error =  greet.errorMessage(req.body.language, req.body.nameValue);
 
-    
-res.render('index',{
-   message :  greet.greetLang(req.body.language,req.body.nameValue),
-   count : greet.greetCounter()
-})
+
+    res.render('index', {
+        message: (error === "") ? greet.greetLang(req.body.language, req.body.nameValue) : error,
+        count: greet.greetCounter(),
+        greeted: greet.getNames(),
+       
+    })
 
     // res.redirect('/');
 });
 
 
-app.get('/counter/names', function (req, res) {
-    // const listNames = greet.counter();
-    // for (var i= 0;  i< listNames.length;i++) {
-    //    if(){
+app.get('/counter', function (req, res) {
+    const listNames = greet.counter();
+    for (counter of listNames) {
+        counter.nameNum = listNames++;
+    }
+    res.render('counter', { counter: listNames });
 
-    //    }
-    // }
-    res.render('counter', { counter: Greet.counter() });
+    res.render('counter', { counter: greet.counter() });
 });
+
+app.get('/greeted/:user', function (req, res) {
+    const nameType = req.params.nametype;
+
+    const listNames = greet.actionsFor(nameType);
+
+    for (action of listNames) {
+        action.nameNum = action.listNames;
+    }
+    res.render('greeted', { greeted: listNames });
+})
 
 const PORT = process.env.PORT || 3010
 app.listen(PORT, function () {
