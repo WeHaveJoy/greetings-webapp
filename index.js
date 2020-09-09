@@ -71,7 +71,7 @@ app.get('/greeted/:name', function (req, res) {
     // for (action of listNames) {
     //     action.nameNum = action.listNames;
     // }
-    res.render('greeted', { greetedName: `${name} have been greeted ${count} times` });
+    res.render('greeted', { greetedName: `${name} have been greeted ${count} time(s)` });
 })
 
 const PORT = process.env.PORT || 3010
