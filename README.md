@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/WeHaveJoy/greetings-webapp.svg?branch=gh-pages)](https://travis-ci.org/WeHaveJoy/greetings-webapp)
