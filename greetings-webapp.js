@@ -39,7 +39,6 @@ module.exports = function Greet(name) {
     }
 
     function getNames() {
-        //console.log(namesList)
         return namesList;
     }
 
@@ -52,9 +51,6 @@ module.exports = function Greet(name) {
         return namesList;
     }
 
-    // function actionsFor(type) {
-    //     return namesList.filter((action) => action.type === type);
-    // }
 
     function errorMessage(selectedLang, nameEntered) {
         var message = "";

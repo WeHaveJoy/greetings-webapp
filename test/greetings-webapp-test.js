@@ -23,8 +23,6 @@ describe("Greet factory function", function () {
         let greetings = Greet();
         var selectedLang = greetings.greetLang("English", "Bongi")
 
-       // greetings.greetLang(language, nameEntered.value);
-
         assert.equal(selectedLang, "Hello, Bongi!");
     })
 

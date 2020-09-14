@@ -34,7 +34,6 @@ app.post('/', function (req, res) {
     greet.setNames(req.body.nameValue);
     var error =  greet.errorMessage(req.body.language, req.body.nameValue);
 
-
     res.render('index', {
         message: (error === "") ? greet.greetLang(req.body.language, req.body.nameValue) : error,
         count: greet.greetCounter(),
