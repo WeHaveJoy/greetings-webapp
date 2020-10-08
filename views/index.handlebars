@@ -1,79 +1,35 @@
-{{!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css"> 
-</head>
-<body>
-  <div class="container"> --}}
-<div>
-    <b>
-        <h1>Greeting</h1>
-    </b>
-    <form action="/" method="POST">
-        <h3 class="name">Name: </h3>
-        <input type="text" class="nameEntered" name="nameValue" placeholder="enter name" >
-        <div class="counter">{{count}}</div>
-</div>
+<div class="container">
+    <div>
+        <b>
+            <h1>Greeting</h1>
+        </b>
+        <form action="/" method="POST">
+            <h3 class="name">Name: </h3>
+            <input type="text" class="nameEntered" name="nameValue" placeholder="enter name">
+            <div class="counter">{{count}}</div>
+    </div>
 
-{{!-- <div class="selectLang">
-    <strong>Choose a language: </strong>
-    <input type="radio" name="language" value="English">English
-    <input type="radio" name="language" value="Afrikaans">Afrikaans
-    <input type="radio" name="language" value="IsiXhosa">IsiXhosa
-</div> --}}
+    <label class="">
+        <input type="radio" name="language" value="English" class="selectLang">
+        <span class="label-body">English</span>
+    </label>
 
-<label class="">
-    <input type="radio" name="language" value="English" class="selectLang">
-    <span class="label-body">English</span>
-</label>
+    <label class="">
+        <input type="radio" name="language" value="IsiXhosa" class="selectLang">
+        <span class="label-body">IsiXhosa</span>
+    </label>
 
-<label class="">
-    <input type="radio" name="language" value="IsiXhosa" class="selectLang">
-    <span class="label-body">IsiXhosa</span>
-</label>
+    <label class="">
+        <input type="radio" name="language" value="Afrikaans" class="selectLang">
+        <span class="label-body">Afrikaans</span>
+    </label>
 
-<label class="">
-    <input type="radio" name="language" value="Afrikaans" class="selectLang">
-    <span class="label-body">Afrikaans</span>
-</label>
+    <div>
+        <button class="button-primary" type="submit" name="button">Greet me!</button>
 
-<div>
-    <button class="button-primary" type="submit" name="button">Greet me!</button>
-    
-    {{!-- <button class="button-primary" type="submit" name="button" >Clear!</button>
-  
-     <button class="button-primary" type="submit" name="button" href="/greeted">Greeted!</button> --}}
-</div>
-</form>
+    </div>
+    </form>
 
-<div class="message">{{message}}</div>
+    <div class="message">{{message}}</div>
 
-
-<a href="/greeted">Greeted Names</a>
-{{!-- <br>
-<a href="/counter">Number of greeted names</a> --}}
-
-{{!-- <tr>
-    <td>
-        <a href="/greeted/user">Name</a>
-    </td>
-    <td>
-        <a href="/greeted/user">Count</a>
-    </td>
-</tr> --}}
-
-{{!-- <ul>
-    {{#each greeted}}
-    <li>{{this}}</li>
-    {{/each}}
-</ul> --}}
-
-
-{{!-- </div> --}}
-{{!-- </body>
-<script src="factory-function.js"></script>
-<script src="greet-dom.js"></script>
-</html> --}}
+    <a href="/greeted">Greeted Names</a>

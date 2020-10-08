@@ -1,25 +1,32 @@
-module.exports = function Greet(name) {
-    var namesList = {};
+module.exports = function Greet(pool) {
 
-    function setNames(name) {
-        if (name) {
-            if (namesList[name] === undefined) {
-                namesList[name] = 0;
-            }
-            namesList[name]++
+    function checkNames(name) {
+        var checkName = pool.query('select name from greeting_t where name= $1', [name])
+        return checkName;
+    }
 
+    async function insertNames(myNames) {
+        await pool.query('insert into greeting_t(name, counter) values($1, $2)', [myNames, 1]);
+    }
+
+    function updateCounter(name) {
+        var counterUpdate = pool.query('update greeting_t set counter=counter+1 where name=$1', [name])
+        return counterUpdate;
+    }
+
+    // function getNameCount(name) {
+    //     return namesList[name];
+    // }
+
+    async function greetLang(selectedLang, nameEntered) {
+        var names = await checkNames(nameEntered)
+        if (names.rowCount > 0) {
+            await updateCounter(nameEntered);
+        } else {
+            await insertNames(nameEntered);
         }
-    }
-
-    function getNameCount(name){
-        // console.log({name,namesList});
-        // console.log( namesList[name]);
-        
-        return namesList[name];
-    }
 
 
-    function greetLang(selectedLang, nameEntered) {
         if (selectedLang === "English") {
             return "Hello, " + nameEntered + "!";
         }
@@ -29,28 +36,22 @@ module.exports = function Greet(name) {
         else if (selectedLang === "IsiXhosa") {
             return "Molo, " + nameEntered + "!";
         }
-
-        // namesList.push({
-        //     type: selectedLang, nameEntered,
-        //     //nameNum,
-
-        // });
-
     }
 
-    function getNames() {
-        return namesList;
+    async function getNames() {
+        var name = pool.query('select name from greeting_t')
+        return name;
     }
+
+    // function greetCounter() {
+    //     var names = Object.keys(namesList)
+    //     return names.length;
+    // }
 
     function greetCounter() {
-        var names = Object.keys(namesList)
-        return names.length;
+        var name = pool.query('SELECT * FROM greeting_t')
+        return name.rowCount;
     }
-
-    function greeted() {
-        return namesList;
-    }
-
 
     function errorMessage(selectedLang, nameEntered) {
         var message = "";
@@ -67,13 +68,14 @@ module.exports = function Greet(name) {
     }
 
     return {
-        setNames,
+        checkNames,
         greetLang,
         getNames,
-        greetCounter,
+         greetCounter,
         errorMessage,
-        greeted,
-        getNameCount
-        // actionsFor
+        // greeted,
+        // getNameCount,
+        insertNames,
+        updateCounter
     }
 }
