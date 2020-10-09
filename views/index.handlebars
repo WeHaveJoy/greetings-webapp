@@ -1,4 +1,4 @@
-<div class="container">
+ <div class="container">
     <div>
         <b>
             <h1>Greeting</h1>
@@ -8,7 +8,6 @@
             <input type="text" class="nameEntered" name="nameValue" placeholder="enter name">
             <div class="counter">{{count}}</div>
     </div>
-
     <label class="">
         <input type="radio" name="language" value="English" class="selectLang">
         <span class="label-body">English</span>
@@ -25,11 +24,14 @@
     </label>
 
     <div>
-        <button class="button-primary" type="submit" name="button">Greet me!</button>
-
+        <button class="button-primary" type="submit" name="button">Greet me!</button>   
+ <a href="/reset"><button class="button-primary" type="button" name="button">Reset</button></a>
     </div>
     </form>
 
-    <div class="message">{{message}}</div>
+    <div class="message">
+        {{message}}
+        <br>
+    </div>
 
     <a href="/greeted">Greeted Names</a>

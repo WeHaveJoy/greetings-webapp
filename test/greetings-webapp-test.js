@@ -3,13 +3,13 @@ let Greet = require("../greetings-webapp");
 const pg = require("pg");
 const Pool = pg.Pool;
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex-coder:pg123@localhost:5432/my_greetings';
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex-coder:pg123@localhost:5432/my_greeting_test';
 
 const pool = new Pool({
     connectionString
 });
 
-// describe("Greet factory function", function () {
+ describe("Greet factory function", function () {
 //     it("should be able to set names", function () {
 //         let greetings = Greet();
 //         var theNames = greetings.greetLang("IsiXhosa", "Sino")
@@ -41,6 +41,7 @@ const pool = new Pool({
 
         assert.equal(message, "Please enter name!");
     })
+});
 
 //     it("should be able to count names", function () {
 //         let greetings = Greet();
@@ -61,15 +62,46 @@ describe('The basic database Greet web app', function(){
         await pool.query("delete from greeting_t");
     });
 
-    it('should pass the db test', async function(){
+    it('should pass the count test', async function(){
         
         // the Factory Function is called CategoryService
         // let categoryService = CategoryService(pool);
         let greetings = Greet(pool);
         await greetings.insertNames('sasa');
+         await greetings.insertNames('lihle');
+         await greetings.insertNames('zizipho');
+        var g = await greetings.greetCounter();
 
      //  let greetCounter = await greetings.insertNames();
-        assert.equal(1, await greetings.greetCounter());
+        assert.equal(3, g);
+       // console.log("await greetings.insertNames('sasa')");
+    });
+
+    it('should pass getting the name test', async function(){
+        
+        // the Factory Function is called CategoryService
+        // let categoryService = CategoryService(pool);
+        let greetings = Greet(pool);
+        await greetings.insertNames('Zipho');
+        var names = await greetings.getNames();
+        
+     //  let greetCounter = await greetings.insertNames();
+        assert.equal("Zipho",names[0].name);
+       // console.log("await greetings.insertNames('sasa')");
+    });
+
+
+    it('should pass inserting the name test', async function(){
+        
+        // the Factory Function is called CategoryService
+        // let categoryService = CategoryService(pool);
+        let greetings = Greet(pool);
+       // await greetings.checkNames();
+        var names = await greetings.greetLang( "English", 'Zipho' );
+        var z = await greetings.getNames();
+        
+     //  let greetCounter = await greetings.insertNames();
+        assert.equal("Zipho",z[0].name);
        // console.log("await greetings.insertNames('sasa')");
     });
 

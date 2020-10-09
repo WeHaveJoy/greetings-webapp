@@ -1,17 +1,21 @@
 module.exports = function Greet(pool) {
 
-    function checkNames(name) {
-        var checkName = pool.query('select name from greeting_t where name= $1', [name])
+    async function checkNames(name) {
+        var checkName = await pool.query('select name from greeting_t where name= $1', [name])
+        // console.log(checkName);
+
         return checkName;
     }
 
     async function insertNames(myNames) {
-        await pool.query('insert into greeting_t(name, counter) values($1, $2)', [myNames, 1]);
+        var insert = await pool.query('insert into greeting_t(name, counter) values($1, $2)', [myNames, 1]);
+        //console.log(insert.rows);
+        return insert.row;
     }
 
-    function updateCounter(name) {
-        var counterUpdate = pool.query('update greeting_t set counter=counter+1 where name=$1', [name])
-        return counterUpdate;
+    async function updateCounter(name) {
+        var counterUpdate = await pool.query('update greeting_t set counter=counter+1 where name=$1', [name])
+        return counterUpdate.rowCount;
     }
 
     // function getNameCount(name) {
@@ -39,8 +43,9 @@ module.exports = function Greet(pool) {
     }
 
     async function getNames() {
-        var name = pool.query('select name from greeting_t')
-        return name;
+        var name = await pool.query('select name from greeting_t')
+        //  console.log(name.rows);
+        return name.rows;
     }
 
     // function greetCounter() {
@@ -48,8 +53,14 @@ module.exports = function Greet(pool) {
     //     return names.length;
     // }
 
-    function greetCounter() {
-        var name = pool.query('SELECT * FROM greeting_t')
+
+    async function deletingData() {
+        await pool.query('delete from greeting_t');
+    }
+
+    async function greetCounter() {
+        var name = await pool.query('SELECT * FROM greeting_t')
+        // console.log(name.rowCount);
         return name.rowCount;
     }
 
@@ -67,15 +78,17 @@ module.exports = function Greet(pool) {
         return message;
     }
 
+
     return {
         checkNames,
         greetLang,
         getNames,
-         greetCounter,
+        greetCounter,
         errorMessage,
         // greeted,
         // getNameCount,
         insertNames,
-        updateCounter
+        updateCounter,
+        deletingData
     }
 }
