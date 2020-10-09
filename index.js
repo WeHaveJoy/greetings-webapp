@@ -84,8 +84,8 @@ app.post('/', async function (req, res) {
         var error = greet.errorMessage(req.body.language, req.body.nameValue);
         res.render('index', {
             message: (error === "") ? await greet.greetLang(req.body.language, req.body.nameValue) : error,
-            count:await greet.greetCounter(),
-            greeted:await greet.getNames()
+            count: await greet.greetCounter(),
+            greeted: await greet.getNames()
 
         })
     } catch (error) {
@@ -94,7 +94,7 @@ app.post('/', async function (req, res) {
     }
 });
 
-app.get('/counter',async function (req, res) {
+app.get('/counter', async function (req, res) {
     // const listNames = greet.greetCounter();
     // for (counter of listNames) {
     //     counter.nameNum = listNames++;
@@ -104,10 +104,10 @@ app.get('/counter',async function (req, res) {
     res.render('counter', { counter: await greet.greetCounter() });
 });
 
-app.get('/greeted',async function (req, res) {
+app.get('/greeted', async function (req, res) {
 
 
-   res.render('greeted', { greeted: await greet.getNames() });
+    res.render('greeted', { greeted: await greet.getNames() });
 })
 
 app.get('/greeted/:name', async function (req, res) {
@@ -123,12 +123,12 @@ app.get('/greeted/:name', async function (req, res) {
 });
 
 
-app.get('/reset', async function (req, res){
+app.get('/reset', async function (req, res) {
     await greet.deletingData()
     res.render('index', {
         counter: await greet.greetCounter()
     })
-    
+
 })
 
 const PORT = process.env.PORT || 3008
