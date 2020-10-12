@@ -78,6 +78,7 @@ module.exports = function Greet(pool) {
         return message;
     }
 
+
     return {
         checkNames,
         greetLang,
