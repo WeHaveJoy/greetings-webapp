@@ -70,10 +70,10 @@ app.use(bodyParser.json())
 
 
 
-app.get('/', function (req, res) {
+app.get('/',async function (req, res) {
     res.render(
-        "index", {
-    })
+    //await greet.greetCounter(),
+        "index", { count: await greet.greetCounter()});
 });
 
 app.post('/', async function (req, res) {
@@ -82,11 +82,11 @@ app.post('/', async function (req, res) {
         // greet.greetLang(req.body.language, req.body.nameValue);
         //greet.setNames(req.body.nameValue);
         var error = greet.errorMessage(req.body.language, req.body.nameValue);
+        // var checkName = nameValue.charAt(0).toUpperCase() + nameValue.slice(1).toLowerCase();
         res.render('index', {
             message: (error === "") ? await greet.greetLang(req.body.language, req.body.nameValue) : error,
             count: await greet.greetCounter(),
-            greeted: await greet.getNames()
-
+            greeted: await greet.getNames(),
         })
     } catch (error) {
         console.log(error);
@@ -114,12 +114,13 @@ app.get('/greeted/:name', async function (req, res) {
     const name = req.params.name;
 
     // const listNames = greet.actionsFor(nameType);
-    var count = await greet.greetCounter(name)
+    var count = await greet.counterForOne(name)
 
-    // for (action of listNames) {
-    //     action.nameNum = action.listNames;
-    // }
-    res.render('greeted', { greetedName: `${name} have been greeted ${count} time(s)` });
+    for (const action in count) {
+        var gcounter = count[action]
+        console.log(gcounter);
+    }
+    res.render('greeted', { greetedName: `${name} have been greeted ${gcounter} time(s)` });
 });
 
 

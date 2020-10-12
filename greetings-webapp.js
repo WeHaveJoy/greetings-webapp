@@ -60,8 +60,14 @@ module.exports = function Greet(pool) {
 
     async function greetCounter() {
         var name = await pool.query('SELECT * FROM greeting_t')
-        // console.log(name.rowCount);
         return name.rowCount;
+    }
+
+    async function counterForOne(count) {
+      var name = await pool.query('SELECT counter FROM greeting_t where name=$1', [count]);
+      console.log(name.rows[0]);
+      
+        return name.rows[0];
     }
 
     function errorMessage(selectedLang, nameEntered) {
@@ -89,6 +95,7 @@ module.exports = function Greet(pool) {
         // getNameCount,
         insertNames,
         updateCounter,
-        deletingData
+        deletingData,
+        counterForOne
     }
 }
