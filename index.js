@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const greetings = require('./greetings-webapp');
 const flash = require('express-flash');
 const session = require('express-session');
-
+const _ = require('lodash');
 
 const app = express();
 
@@ -70,10 +70,10 @@ app.use(bodyParser.json())
 
 
 
-app.get('/',async function (req, res) {
+app.get('/', async function (req, res) {
     res.render(
-    //await greet.greetCounter(),
-        "index", { count: await greet.greetCounter()});
+        //await greet.greetCounter(),
+        "index", { count: await greet.greetCounter() });
 });
 
 app.post('/', async function (req, res) {
@@ -81,6 +81,7 @@ app.post('/', async function (req, res) {
     try {
         // greet.greetLang(req.body.language, req.body.nameValue);
         //greet.setNames(req.body.nameValue);
+        const Name = _.capitalize(req.body.nameValue);
         var error = greet.errorMessage(req.body.language, req.body.nameValue);
         // var checkName = nameValue.charAt(0).toUpperCase() + nameValue.slice(1).toLowerCase();
         res.render('index', {
@@ -112,13 +113,13 @@ app.get('/greeted', async function (req, res) {
 
 app.get('/greeted/:name', async function (req, res) {
     const name = req.params.name;
-
+    //name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     // const listNames = greet.actionsFor(nameType);
     var count = await greet.counterForOne(name)
 
     for (const action in count) {
         var gcounter = count[action]
-        console.log(gcounter);
+        // console.log(gcounter);
     }
     res.render('greeted', { greetedName: `${name} have been greeted ${gcounter} time(s)` });
 });

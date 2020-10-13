@@ -14,7 +14,7 @@ module.exports = function Greet(pool) {
     }
 
     async function updateCounter(name) {
-        var counterUpdate = await pool.query('update greeting_t set counter=counter+1 where name=$1', [name])
+        var counterUpdate = await pool.query('update greeting_t set counter=counter+1 where name=$1', [name]).toUppercase;
         return counterUpdate;
     }
 
@@ -64,9 +64,8 @@ module.exports = function Greet(pool) {
     }
 
     async function counterForOne(count) {
-      var name = await pool.query('SELECT counter FROM greeting_t where name=$1', [count]);
-      console.log(name.rows[0]);
-      
+        var name = await pool.query('SELECT counter FROM greeting_t where name=$1', [count]);
+        //console.log(name.rows[0]);
         return name.rows[0];
     }
 
