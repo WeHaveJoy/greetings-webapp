@@ -82,6 +82,7 @@ app.post('/', async function (req, res) {
         // greet.greetLang(req.body.language, req.body.nameValue);
         //greet.setNames(req.body.nameValue);
         const Name = _.capitalize(req.body.nameValue);
+        //await greet.insertNames(req.body.Name);
         var error = greet.errorMessage(req.body.language, req.body.nameValue);
         // var checkName = nameValue.charAt(0).toUpperCase() + nameValue.slice(1).toLowerCase();
         res.render('index', {
@@ -91,7 +92,6 @@ app.post('/', async function (req, res) {
         })
     } catch (error) {
         console.log(error);
-
     }
 });
 
@@ -111,7 +111,7 @@ app.get('/greeted', async function (req, res) {
     res.render('greeted', { greeted: await greet.getNames() });
 })
 
-app.get('/greeted/:name', async function (req, res) {
+app.get('/count/:name', async function (req, res) {
     const name = req.params.name;
     //name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     // const listNames = greet.actionsFor(nameType);
@@ -121,7 +121,7 @@ app.get('/greeted/:name', async function (req, res) {
         var gcounter = count[action]
         // console.log(gcounter);
     }
-    res.render('greeted', { greetedName: `${name} have been greeted ${gcounter} time(s)` });
+    res.render('count', { greetedName: `Hello, ${name} have been greeted ${gcounter} time(s)` });
 });
 
 
