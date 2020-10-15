@@ -105,6 +105,27 @@ describe('The basic database Greet web app', function () {
         // console.log("await greetings.insertNames('sasa')");
     });
 
+    it('should pass greeting in IsiXhosa', async function () {
+
+        let greetings = Greet(pool);
+
+        assert.equal("Molo, Lulu!", await greetings.greetLang("IsiXhosa", "Lulu"));
+    });
+
+    it('should pass greeting in English', async function () {
+
+        let greetings = Greet(pool);
+
+        assert.equal("Hello, Zandile!", await greetings.greetLang("English", "Zandile"));
+    });
+
+    it('should pass greeting in Afrikaans', async function () {
+
+        let greetings = Greet(pool);
+
+        assert.equal("Hallo, Bonga!", await greetings.greetLang("Afrikaans", "Bonga"));
+    });
+
     after(function () {
         pool.end();
     })

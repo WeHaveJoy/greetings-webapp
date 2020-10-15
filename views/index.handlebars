@@ -27,11 +27,15 @@
         <button class="button-primary" type="submit" name="button">Greet me!</button>
         <a href="/reset"><button class="button-primary" type="button" name="button">Reset</button></a>
     </div>
+<br>
     </form>
-
     <div class="message">
         {{message}}
-        <br>
     </div>
-
+    <div class="flash">
+        {{#if messages.error}}
+        {{messages.error}}
+        {{/if}}
+        <br><br>
+    </div>
     <a href="/greeted">Greeted Names</a>

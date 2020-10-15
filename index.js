@@ -8,7 +8,6 @@ const _ = require('lodash');
 
 const app = express();
 
-
 const pg = require("pg");
 const Pool = pg.Pool;
 
@@ -53,7 +52,6 @@ function errorHandler(err, req, res, next) {
     res.render('error', { error: err });
 }
 
-
 app.engine('handlebars', exphbs({
     defaultLayout: 'main',
     layoutsDir: "./views/layouts"
@@ -69,6 +67,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
+app.get('/addFlash', function (req, res) {
+    req.flash('info', 'Flash Message Added');
+    res.redirect('/');
+});
 
 app.get('/', async function (req, res) {
     res.render(
@@ -80,13 +82,43 @@ app.post('/', async function (req, res) {
 
     try {
         // greet.greetLang(req.body.language, req.body.nameValue);
-        //greet.setNames(req.body.nameValue);
-        const Name = _.capitalize(req.body.nameValue);
-        //await greet.insertNames(req.body.Name);
-        var error = greet.errorMessage(req.body.language, req.body.nameValue);
-        // var checkName = nameValue.charAt(0).toUpperCase() + nameValue.slice(1).toLowerCase();
+        // const Name = _.capitalize(req.body.nameValue)
+        // var language = await greet.greetLang(req.body.language, req.body.Name),
+        // var error = greet.errorMessage(req.body.language, req.body.nameValue);
+        var name = _.capitalize(req.body.nameValue);
+        var lang = req.body.language;
+        //console.log(name + lang);
+
+        if (lang === undefined) {
+            req.flash('error', 'Oops! You forgot to select a language. Please select language...!')
+            res.render('index')
+            return;
+        }
+        else if (name === '') {
+            req.flash('error', 'Please enter name!')
+            res.render('index');
+            return;
+        }
+        else if (lang === undefined && name === '') {
+            req.flash('error', 'Please enter name and select a language!')
+            res.render('index');
+            return;
+        }
+
+        // else {
+
+        //     var v = {
+
+        //         message: await greet.greetLang(lang, name),
+        //         count: await greet.greetCounter(),
+        //         greeted: await greet.getNames(),
+        //     }
+        //  }
+
         res.render('index', {
-            message: (error === "") ? await greet.greetLang(req.body.language, req.body.nameValue) : error,
+            // v
+            // errorM: (error === "") ? greet.errorMessage(req.body.language, req.body.nameValue) : error,
+            message: await greet.greetLang(lang, name),
             count: await greet.greetCounter(),
             greeted: await greet.getNames(),
         })
@@ -124,11 +156,11 @@ app.get('/count/:name', async function (req, res) {
     res.render('count', { greetedName: `Hello, ${name} have been greeted ${gcounter} time(s)` });
 });
 
-
 app.get('/reset', async function (req, res) {
     await greet.deletingData()
     res.render('index', {
-        counter: await greet.greetCounter()
+        counter: await greet.greetCounter(),
+        count: await greet.greetCounter()
     })
 
 })
