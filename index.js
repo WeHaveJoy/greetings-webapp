@@ -11,18 +11,11 @@ const app = express();
 const pg = require("pg");
 const Pool = pg.Pool;
 
-// should we use a SSL connection
-let useSSL = false;
-let local = process.env.LOCAL || false;
-if (process.env.DATABASE_URL && !local) {
-    useSSL = true;
-}
 // which db connection to use
 const connectionString = process.env.DATABASE_URL || 'postgresql://codex-coder:pg123@localhost:5432/my_greetings';
 
 const pool = new Pool({
-    connectionString,
-    ssl: useSSL
+    connectionString
 });
 
 const greet = greetings(pool);
@@ -74,20 +67,16 @@ app.get('/addFlash', function (req, res) {
 
 app.get('/', async function (req, res) {
     res.render(
-        //await greet.greetCounter(),
         "index", { count: await greet.greetCounter() });
 });
 
 app.post('/', async function (req, res) {
 
     try {
-        // greet.greetLang(req.body.language, req.body.nameValue);
-        // const Name = _.capitalize(req.body.nameValue)
-        // var language = await greet.greetLang(req.body.language, req.body.Name),
-        // var error = greet.errorMessage(req.body.language, req.body.nameValue);
+
         var name = _.capitalize(req.body.nameValue);
         var lang = req.body.language;
-        //console.log(name + lang);
+
 
         if (lang === undefined) {
             req.flash('error', 'Oops! You forgot to select a language. Please select language...!')
@@ -104,20 +93,7 @@ app.post('/', async function (req, res) {
             res.render('index');
             return;
         }
-
-        // else {
-
-        //     var v = {
-
-        //         message: await greet.greetLang(lang, name),
-        //         count: await greet.greetCounter(),
-        //         greeted: await greet.getNames(),
-        //     }
-        //  }
-
         res.render('index', {
-            // v
-            // errorM: (error === "") ? greet.errorMessage(req.body.language, req.body.nameValue) : error,
             message: await greet.greetLang(lang, name),
             count: await greet.greetCounter(),
             greeted: await greet.getNames(),
@@ -128,11 +104,7 @@ app.post('/', async function (req, res) {
 });
 
 app.get('/counter', async function (req, res) {
-    // const listNames = greet.greetCounter();
-    // for (counter of listNames) {
-    //     counter.nameNum = listNames++;
-    // }
-    //res.render('counter', { counter: listNames });
+
 
     res.render('counter', { counter: await greet.greetCounter() });
 });
@@ -145,13 +117,12 @@ app.get('/greeted', async function (req, res) {
 
 app.get('/count/:name', async function (req, res) {
     const name = req.params.name;
-    //name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    // const listNames = greet.actionsFor(nameType);
+
     var count = await greet.counterForOne(name)
 
     for (const action in count) {
         var gcounter = count[action]
-        // console.log(gcounter);
+
     }
     res.render('count', { greetedName: `Hello, ${name} have been greeted ${gcounter} time(s)` });
 });

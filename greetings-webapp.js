@@ -2,14 +2,12 @@ module.exports = function Greet(pool) {
 
     async function checkNames(name) {
         var checkName = await pool.query('select name from greeting_t where name= $1', [name])
-        // console.log(checkName);
 
         return checkName;
     }
 
     async function insertNames(myNames) {
         var insert = await pool.query('insert into greeting_t(name, counter) values($1, $2)', [myNames, 1]);
-        //console.log(insert.rows);
         return insert.row;
     }
 
@@ -18,9 +16,6 @@ module.exports = function Greet(pool) {
         return counterUpdate;
     }
 
-    // function getNameCount(name) {
-    //     return namesList[name];
-    // }
 
     async function greetLang(selectedLang, nameEntered) {
         var names = await checkNames(nameEntered)
@@ -44,14 +39,10 @@ module.exports = function Greet(pool) {
 
     async function getNames() {
         var name = await pool.query('select name from greeting_t')
-        //  console.log(name.rows);
         return name.rows;
     }
 
-    // function greetCounter() {
-    //     var names = Object.keys(namesList)
-    //     return names.length;
-    // }
+
 
 
     async function deletingData() {
@@ -65,7 +56,6 @@ module.exports = function Greet(pool) {
 
     async function counterForOne(count) {
         var name = await pool.query('SELECT counter FROM greeting_t where name=$1', [count]);
-        //console.log(name.rows[0]);
         return name.rows[0];
     }
 
@@ -90,8 +80,6 @@ module.exports = function Greet(pool) {
         getNames,
         greetCounter,
         errorMessage,
-        // greeted,
-        // getNameCount,
         insertNames,
         updateCounter,
         deletingData,
