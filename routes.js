@@ -34,6 +34,11 @@ module.exports = function routes(greet) {
                 res.render('index');
                 return;
             }
+            else if(isNaN(name) === false){
+                req.flash('error', "Please don't enter a number!")
+                res.render('index');
+                return;
+            }
             res.render('index', {
                 message: await greet.greetLang(lang, name),
                 count: await greet.greetCounter(),
