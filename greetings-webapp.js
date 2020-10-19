@@ -1,4 +1,4 @@
-module.exports = function Greet(pool) {
+module.exports = function greet(pool) {
 
     async function checkNames(name) {
         var checkName = await pool.query('select name from greeting_t where name= $1', [name])

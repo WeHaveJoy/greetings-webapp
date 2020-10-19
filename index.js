@@ -2,9 +2,10 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const greetings = require('./greetings-webapp');
+const Routes = require('./routes');
 const flash = require('express-flash');
 const session = require('express-session');
-const _ = require('lodash');
+//const _ = require('lodash');
 
 const app = express();
 
@@ -19,6 +20,9 @@ const pool = new Pool({
 });
 
 const greet = greetings(pool);
+const routes = Routes(greet);
+
+
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -60,81 +64,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-app.get('/addFlash', function (req, res) {
-    req.flash('info', 'Flash Message Added');
-    res.redirect('/');
-});
+app.get('/addFlash', routes.flashMessages)
 
-app.get('/', async function (req, res) {
-    res.render(
-        "index", { count: await greet.greetCounter() });
-});
+app.get('/', routes.index)
 
-app.post('/', async function (req, res) {
+app.post('/', routes.homeRoute)
 
-    try {
+app.get('/counter', routes.counter)
 
-        var name = _.capitalize(req.body.nameValue);
-        var lang = req.body.language;
+app.get('/greeted', routes.greeted)
 
+app.get('/count/:name', routes.countUser)
 
-        if (lang === undefined) {
-            req.flash('error', 'Oops! You forgot to select a language. Please select language...!')
-            res.render('index')
-            return;
-        }
-        else if (name === '') {
-            req.flash('error', 'Please enter name!')
-            res.render('index');
-            return;
-        }
-        else if (lang === undefined && name === '') {
-            req.flash('error', 'Please enter name and select a language!')
-            res.render('index');
-            return;
-        }
-        res.render('index', {
-            message: await greet.greetLang(lang, name),
-            count: await greet.greetCounter(),
-            greeted: await greet.getNames(),
-        })
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-app.get('/counter', async function (req, res) {
-
-
-    res.render('counter', { counter: await greet.greetCounter() });
-});
-
-app.get('/greeted', async function (req, res) {
-
-
-    res.render('greeted', { greeted: await greet.getNames() });
-})
-
-app.get('/count/:name', async function (req, res) {
-    const name = req.params.name;
-
-    var count = await greet.counterForOne(name)
-
-    for (const action in count) {
-        var gcounter = count[action]
-
-    }
-    res.render('count', { greetedName: `Hello, ${name} have been greeted ${gcounter} time(s)` });
-});
-
-app.get('/reset', async function (req, res) {
-    await greet.deletingData()
-    res.render('index', {
-        counter: await greet.greetCounter(),
-        count: await greet.greetCounter()
-    })
-
-})
+app.get('/reset', routes.deleteData)
 
 const PORT = process.env.PORT || 3008
 app.listen(PORT, function () {

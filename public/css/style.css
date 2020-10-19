@@ -2,6 +2,10 @@ body{
     background-color: slategrey;
 }
 
+.container{
+   align-content: center;
+}
+
 .name{
     color: aqua;
 }
